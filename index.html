@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Random Name Spinner</title>
+
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+    <div class="container">
+
+        <h1 class="title"></h1>
+        <div class="wheel-wrapper">
+            <div class="pointer"></div>
+            <div id="wheel" class="wheel"></div>
+            <div class="wheel-center">
+                SPIN
+            </div>
+        </div>
+
+        <button id="spinBtn" class="spin-btn"> Spin </button>
+    </div>
+
+    <div
+        id="winnerScreen"
+        class="winner-screen">
+
+        <div id="confetti"></div>
+        <div class="winner-content">
+            <p class="winner-label">
+                The Winner Is 
+            </p>
+            <h1 id="winnerName"></h1>
+            <p class="winner-message">
+                Congratulations!
+            </p>
+            <button
+                id="spinAgainBtn"
+                class="spin-again-btn">Spin Again </button>
+        </div>
+    </div>
+
+
+    <script src="index.js"></script>
+
+</body>
+
+</html>

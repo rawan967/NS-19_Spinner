@@ -1,0 +1,550 @@
+/* =========================
+   GENERAL
+========================= */
+
+* {
+    box-sizing: border-box;
+}
+
+
+body {
+    margin: 0;
+
+    min-height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: #0d1b4e;
+
+    font-family: Arial, sans-serif;
+
+    overflow: hidden;
+}
+
+
+/* =========================
+   MAIN CONTAINER
+========================= */
+
+.container {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+    align-items: center;
+
+    text-align: center;
+}
+
+
+.title {
+    color: white;
+
+    font-size: 32px;
+
+    margin-bottom: 25px;
+}
+
+
+/* =========================
+   WHEEL WRAPPER
+========================= */
+
+.wheel-wrapper {
+
+    position: relative;
+
+    width: 500px;
+    height: 500px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/* =========================
+   WHEEL
+========================= */
+
+.wheel {
+
+    width: 450px;
+    height: 450px;
+
+    border-radius: 50%;
+
+    border: 8px solid white;
+
+    position: relative;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 0 0 8px rgba(255, 255, 255, 0.08),
+        0 15px 40px rgba(0, 0, 0, 0.4);
+
+    transition:
+        transform 5s cubic-bezier(.17, .67, .12, .99);
+}
+
+
+/* =========================
+   POINTER
+========================= */
+
+.pointer {
+
+    position: absolute;
+
+    z-index: 20;
+
+    top: 3px;
+
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    width: 0;
+    height: 0;
+
+    border-left: 20px solid transparent;
+
+    border-right: 20px solid transparent;
+
+    border-top: 42px solid #a10b0b;
+
+    filter:
+        drop-shadow(
+            0 3px 4px rgba(0, 0, 0, .4)
+        );
+}
+
+
+/* =========================
+   NAMES
+========================= */
+
+.name {
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 50%;
+
+    transform-origin: bottom center;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+    align-items: center;
+
+    padding: 0 45px 20px;
+
+    text-align: center;
+
+    color: white;
+
+    pointer-events: none;
+}
+
+
+.name span {
+
+    display: block;
+
+    font-size: 15px;
+
+    font-weight: 700;
+
+    line-height: 1.15;
+
+    white-space: nowrap;
+
+    text-shadow:
+        1px 1px 2px rgba(0,0,0,.4);
+}
+
+
+/* =========================
+   CENTER CIRCLE
+========================= */
+
+.wheel-center {
+
+    position: absolute;
+
+    z-index: 15;
+
+    width: 75px;
+    height: 75px;
+
+    border-radius: 50%;
+
+    background: #a10b0b;
+
+    border: 5px solid white;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    color: white;
+
+    font-size: 14px;
+
+    font-weight: bold;
+
+    box-shadow:
+        0 4px 12px rgba(0, 0, 0, .35);
+}
+
+
+/* =========================
+   SPIN BUTTON
+========================= */
+
+.spin-btn,
+.spin-again-btn {
+    border: none;
+    padding:15px 45px;
+    border-radius: 12px;
+    background: white;
+    color: #0d1b4e;
+    font-size: 18px;
+    font-weight: 800;
+    cursor: pointer;
+    transition:
+        transform .25s ease,
+        opacity .25s ease;
+}
+
+
+.spin-btn {
+    margin-top: 20px;
+}
+
+
+.spin-btn:hover,
+.spin-again-btn:hover {
+
+    transform: scale(1.06);
+}
+
+.spin-btn:disabled {
+    opacity: .5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+
+/* =========================
+   WINNER SCREEN
+========================= */
+
+.winner-screen {
+
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: #0d1b4e;
+    opacity: 0;
+    visibility: hidden;
+
+    transition:
+        opacity .4s ease,
+        visibility .4s ease;
+}
+
+
+.winner-screen.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+
+
+.winner-content {
+
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    animation:
+        winnerAppear .7s ease;
+}
+
+.winner-label {
+
+    margin:
+        0 0 15px;
+    color:
+        rgba(255, 255, 255, .75);
+
+    font-size: 25px;
+    font-weight: 700;
+    letter-spacing: 5px;
+}
+
+#winnerName {
+    margin: 0;
+    max-width: 90vw;
+    color: white;
+    font-size:
+        clamp(45px, 8vw, 90px);
+    font-weight: 900;
+    line-height: 1.1;
+    text-align: center;
+    overflow-wrap: break-word;
+    animation:namePop .8s ease;
+}
+
+.winner-message {
+    color: white;
+    font-size: 25px;
+    font-weight: bold;
+    box-shadow: #a10b0b;
+    margin: 20px 0 35px;
+}
+
+
+/* =========================
+   CONFETTI
+========================= */
+
+#confetti {
+
+    position: absolute;
+
+    inset: 0;
+
+    overflow: hidden;
+
+    pointer-events: none;
+}
+
+
+.confetti-piece {
+
+    position: absolute;
+
+    top: -30px;
+
+    width: 10px;
+
+    height: 18px;
+
+    animation:
+        confettiFall
+        linear
+        forwards;
+}
+
+
+/* =========================
+   ANIMATIONS
+========================= */
+
+@keyframes confettiFall {
+
+    0% {
+
+        transform:
+            translateY(-30px)
+            rotate(0deg);
+
+        opacity: 1;
+    }
+
+
+    100% {
+
+        transform:
+            translateY(110vh)
+            rotate(720deg);
+
+        opacity: 0;
+    }
+}
+
+
+@keyframes winnerAppear {
+
+    0% {
+
+        transform:
+            scale(.4);
+
+        opacity: 0;
+    }
+
+
+    70% {
+
+        transform:
+            scale(1.08);
+    }
+
+
+    100% {
+
+        transform:
+            scale(1);
+
+        opacity: 1;
+    }
+}
+
+
+@keyframes namePop {
+
+    0% {
+
+        transform:
+            scale(.2);
+
+        opacity: 0;
+    }
+
+
+    70% {
+
+        transform:
+            scale(1.15);
+    }
+
+
+    100% {
+
+        transform:
+            scale(1);
+
+        opacity: 1;
+    }
+}
+
+
+@keyframes celebration {
+
+    from {
+
+        transform:
+            rotate(-10deg)
+            scale(1);
+    }
+
+
+    to {
+
+        transform:
+            rotate(10deg)
+            scale(1.15);
+    }
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 600px) {
+
+    .title {
+
+        font-size: 25px;
+
+        margin-bottom: 15px;
+    }
+
+
+    .wheel-wrapper {
+
+        width: 360px;
+        height: 360px;
+    }
+
+
+    .wheel {
+
+        width: 320px;
+        height: 320px;
+
+        border-width: 6px;
+    }
+
+
+    .name {
+
+        padding:
+            0 45px 15px;
+
+        font-size: 12px;
+    }
+
+
+    .pointer {
+
+        top: 2px;
+
+        border-left-width: 16px;
+        border-right-width: 16px;
+
+        border-top-width: 35px;
+    }
+
+
+    .wheel-center {
+
+        width: 60px;
+        height: 60px;
+
+        font-size: 11px;
+    }
+
+
+    .spin-btn {
+
+        padding:
+            13px 35px;
+
+        font-size: 16px;
+    }
+
+
+    .winner-label {
+
+        font-size: 16px;
+
+        letter-spacing: 3px;
+    }
+
+
+    .winner-icon {
+
+        font-size: 55px;
+    }
+
+
+    #winnerName {
+
+        font-size:
+            clamp(38px, 12vw, 65px);
+
+        padding:
+            0 20px;
+    }
+}
